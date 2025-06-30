@@ -50,6 +50,33 @@ deal_data = {
 }
 info = deal_data[st.session_state.selected_deal_id]
 
+# Create a unique session state key per deal
+form_key = f"deal_form_{st.session_state.selected_deal_id}"
+
+# Default form state if not already saved
+if form_key not in st.session_state:
+    st.session_state[form_key] = {
+        "txn_type": info["txn_type"],
+        "deal_group": info["deal_group"],
+        "booking_country": info["booking_country"],
+        "transaction_category": info["transaction_category"]
+    }
+
+with st.form(key="deal_edit_form"):
+    txn_type = st.selectbox("Transaction Type", ["Islamic", "Conventional"], index=0 if st.session_state[form_key]["txn_type"] == "Islamic" else 1)
+    deal_group = st.selectbox("Deal Group", ["IBG", "CIBG"], index=0 if st.session_state[form_key]["deal_group"] == "IBG" else 1)
+    booking_country = st.selectbox("Booking Country", ["UAE", "KSA", "Qatar"], index=["UAE", "KSA", "Qatar"].index(st.session_state[form_key]["booking_country"]))
+    txn_category = st.text_input("Transaction Category", st.session_state[form_key]["transaction_category"])
+    submitted = st.form_submit_button("💾 Save Changes")
+    if submitted:
+        st.session_state[form_key] = {
+            "txn_type": txn_type,
+            "deal_group": deal_group,
+            "booking_country": booking_country,
+            "transaction_category": txn_category
+        }
+        st.success("Changes saved for " + st.session_state.selected_deal_id)
+
 st.session_state.selected_deal_id = selected
 
 
@@ -60,9 +87,9 @@ if "selected_deal_id" not in st.session_state:
 st.markdown(f"**🧭 Navigation:** Home / RM / {st.session_state.get('selected_deal_id', '')}**")
 
 
-st.title("📈 RM - KPI Dashboard")
-st.markdown("### Welcome, Relationship Manager!")
-st.metric(label="Total Revenue This Week", value="AED 3.2M")
-st.metric(label="Days to Quarter End", value="10")
-st.markdown("### Portfolio Maintenance")
-st.progress(0.7, text="KYC Reviews 70% Complete")
+st.title("📅 RM - Create Drawdown Schedule")
+st.text("Deal ID: RM-001 | Client: Alpha Corp | Booking Country: UAE")
+st.date_input("Disbursement Date")
+st.number_input("Disbursement Value (AED '000)", step=100000)
+st.selectbox("Status", ["Amber 50%", "Green 80%", "Red 20%"])
+st.button("Save Schedule")

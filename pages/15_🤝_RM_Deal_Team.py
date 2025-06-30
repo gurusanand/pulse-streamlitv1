@@ -60,9 +60,8 @@ if "selected_deal_id" not in st.session_state:
 st.markdown(f"**🧭 Navigation:** Home / RM / {st.session_state.get('selected_deal_id', '')}**")
 
 
-st.title("📈 RM - KPI Dashboard")
-st.markdown("### Welcome, Relationship Manager!")
-st.metric(label="Total Revenue This Week", value="AED 3.2M")
-st.metric(label="Days to Quarter End", value="10")
-st.markdown("### Portfolio Maintenance")
-st.progress(0.7, text="KYC Reviews 70% Complete")
+st.title("🤝 RM - Deal Team")
+st.markdown("### Assigned Team")
+st.write("**Name:** Ayesha Khan  \n**Division:** Corporate Finance")
+st.markdown("### Deal Room Discussion")
+st.write("- 12 Jun 2025 - Added by @Ayesha: Please review document set.")
