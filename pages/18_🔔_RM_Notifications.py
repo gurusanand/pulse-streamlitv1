@@ -197,17 +197,19 @@ with tab2:
     # Recent notifications timeline
     recent_notifications = notification_df.head(15).copy()
     recent_notifications['hours_ago'] = (datetime.now() - recent_notifications['timestamp']).dt.total_seconds() / 3600
+    # Convert action_required to int for size
+    recent_notifications['action_required_size'] = recent_notifications['action_required'].astype(int)
     
     fig_timeline = px.scatter(
         recent_notifications,
         x='hours_ago',
         y='priority',
-        size='action_required',
+        size='action_required_size',
         color='type',
         hover_data=['client', 'title'],
         title="Recent Notifications Timeline"
     )
-    fig_timeline.update_xaxis(title="Hours Ago")
+    fig_timeline.update_xaxes(title="Hours Ago")
     st.plotly_chart(fig_timeline, use_container_width=True)
 
 with tab3:
@@ -299,6 +301,16 @@ with st.sidebar:
     resolution_rate = random.uniform(85, 95)
     st.metric("Resolution Rate", f"{resolution_rate:.1f}%")
 
+# Example DataFrame for additional plot
+df = pd.DataFrame({
+    "x": [1, 2, 3],
+    "y": [4, 5, 6],
+    "label": ["A", "B", "C"]
+})
+
+fig = px.scatter(df, x="x", y="y", text="label")
+st.plotly_chart(fig)
+
 st.markdown("""
 ---
 **RM Notifications Features:**
@@ -309,4 +321,3 @@ st.markdown("""
 - 📱 Multi-channel alert delivery (Email, SMS, Push)
 - 🤖 AI-powered notification intelligence
 """)
-
