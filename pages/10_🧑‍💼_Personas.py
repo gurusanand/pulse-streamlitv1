@@ -5,7 +5,7 @@ import pandas as pd
 # Dummy data for personas
 personas = [
     {
-        "name": "A. SUBRAMANIAN S.d",
+        "name": "M. SUBRAMANIAN",
         "designation": "Chairman",
         "client": "GARNASH ENTERPRISES LLC SYN1",
         "cif": "0131045486",
@@ -13,7 +13,7 @@ personas = [
         "phone": "9718810062",
         "last_call_status": "Completed - Positive",
         "communication_status": "Awaiting follow-up email",
-        "positions": ["ALIJABOR REAL ESTATE INV.", "EGYPTIAN GENERAL PETRO..."],
+        "positions": ["ALIJABR REAL ESTATE INV.", "EGYPTIAN GENERAL PETRO LTD..."],
         "activity": "LUKOIL FINANCE B.V. - Treasury Services - FX Approved",
         "call_history": [
             {"date": "11-Jun-2025", "company": "VITOL BAHRAIN E C", "status": "Completed"},
