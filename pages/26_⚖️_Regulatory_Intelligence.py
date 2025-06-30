@@ -32,6 +32,8 @@ def generate_regulatory_data():
     return pd.DataFrame(regulations)
 
 reg_df = generate_regulatory_data()
+reg_df['deadline'] = pd.to_datetime(reg_df['deadline'], errors='coerce')
+reg_df = reg_df.dropna(subset=['deadline'])
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
@@ -48,8 +50,13 @@ with col4:
 
 # Regulatory timeline
 st.subheader("📅 Regulatory Timeline")
-fig = px.timeline(reg_df, x_start='deadline', x_end='deadline', y='regulation_type',
-                  color='impact_level', title="Upcoming Regulatory Deadlines")
+fig = px.scatter(
+    reg_df,
+    x='deadline',
+    y='regulation_type',
+    color='impact_level',
+    title="Upcoming Regulatory Deadlines"
+)
 st.plotly_chart(fig, use_container_width=True)
 
 # Compliance dashboard
@@ -67,4 +74,3 @@ for _, reg in reg_df.head(8).iterrows():
             st.metric("Status", reg['status'])
             days_to_deadline = (reg['deadline'] - datetime.now()).days
             st.metric("Days to Deadline", days_to_deadline)
-
