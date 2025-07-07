@@ -1,5 +1,7 @@
+python3.10
+streamlit==1.29.0
 pandas==2.1.4
-numpy >=1.26.0, <=1.26.4
+numpy==1.26.4
 plotly==5.17.0
 altair==5.2.0
 streamlit-option-menu==0.3.6
@@ -26,4 +28,3 @@ seaborn==0.13.0
 matplotlib==3.8.2
 pillow==10.1.0
 openai>=1.0.0,<2.0.0
-streamlit>=1.30
